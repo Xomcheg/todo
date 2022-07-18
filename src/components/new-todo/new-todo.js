@@ -15,19 +15,16 @@ export default class NewTodo extends Component {
             })    
         }
         this.clickEnter = (e) => {
-            if(e.key == 'Enter') {
+            if(e.key === 'Enter') {
                 this.props.newTodo(this.state.label)
                 this.setState({
                     label: ''
                 })
-            }
-            
+            }    
         }
     }
 
     render() {
-        console.log(this.state.label)
-        const { newTodo } = this.props;
         return (
             <input 
                 type='text'
@@ -37,9 +34,7 @@ export default class NewTodo extends Component {
                 autoFocus 
                 onChange = { this.onChangeText }
                 onKeyPress = { this.clickEnter }
-                />
-               
+                />    
         );
     }
-
 };

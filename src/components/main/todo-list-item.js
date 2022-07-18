@@ -12,56 +12,30 @@ export default class TodoListItem extends Component {
     }
 
     render() {
-        const {data, delItem, onToggleDone} = this.props;
-        const { description, created, done, id } = data;
-
-        let classNames = '';
-
-        if (done) {
-            classNames += 'completed';
-        }
+        const {data, delItem, onToggleDone, editElement} = this.props;
+        const { description, created, id, check } = data;
         
         return (
-            <li  className = { classNames }>
                 <div className="view">
-                    <input className="toggle" type="checkbox" id={id}
+                    <input className="toggle" type="checkbox" id={id} 
+                    defaultChecked = {check}
                     onClick = { onToggleDone }/>
-                    <label for= {id}>
-                        <span className="description" 
-                        
-                        >
+                    <label htmlFor= {id}>
+                        <span className="description">
                             { description }
                         </span>
                         <span className="created">{ created }</span>
                     </label>
-                    <button className="icon icon-edit"></button>
+                    <button className="icon icon-edit"
+                            onClick = { editElement }
+                            ></button>
                     <button className="icon icon-destroy"
                             onClick = { delItem }
                             ></button>
                 </div>
-            </li>
         )
     }
 
 }
 
 
-
-
-// function TodoListItem(props) {
-//     const {description, created} = props.data;
-//     return (
-//         <div className="view">
-//             <input className="toggle" type="checkbox"/>
-//             <label>
-//                 <span className="description"
-//                         onClick = {onSpanClick}>{ description }</span>
-//                 <span className="created">{ created }</span>
-//             </label>
-//             <button className="icon icon-edit"></button>
-//             <button className="icon icon-destroy"></button>
-//         </div>
-//     )
-// }
-
-// export default TodoListItem;

@@ -1,19 +1,25 @@
 import React from "react";
+import FilterBtn from "./filters-btn";
 
-function Filters() {
+function Filters(props) {
+
+    const { filtersElements, filterStatus } = props;
+    const buttons = ['All', 'Active', 'Completed'];
+    let id = 200;
+    const elements = buttons.map((item) => {
+        return(
+            <li key = { id++ }>
+                <FilterBtn props = {item}
+                            filterName = {filterStatus}
+                />
+            </li>
+        )
+    })
     return (
-        <ul className="filters">
-            <li>
-                <button className="selected">All</button>
-            </li>
-            <li>
-                <button>Active</button>
-            </li>
-            <li>
-                <button>Completed</button>
-            </li>
+        <ul  className="filters"
+            onClick = {  filtersElements }>
+            { elements }
         </ul>
     )
 }
-
 export default Filters;
