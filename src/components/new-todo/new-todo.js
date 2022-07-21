@@ -1,40 +1,41 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
-import './new-todo.css';
+import './new-todo.css'
 
 export default class NewTodo extends Component {
-    constructor () {
-        super();
-        this.state = {
-            label: ''
-        }
-
-        this.onChangeText = (e) => {
-            this.setState({
-                label: e.target.value
-            })    
-        }
-        this.clickEnter = (e) => {
-            if(e.key === 'Enter') {
-                this.props.newTodo(this.state.label)
-                this.setState({
-                    label: ''
-                })
-            }    
-        }
+  constructor() {
+    super()
+    this.state = {
+      label: '',
     }
 
-    render() {
-        return (
-            <input 
-                type='text'
-                className='new-todo'
-                placeholder='What needs to be done?'
-                value = { this.state.label}
-                autoFocus 
-                onChange = { this.onChangeText }
-                onKeyPress = { this.clickEnter }
-                />    
-        );
+    this.onChangeText = (e) => {
+      this.setState({
+        label: e.target.value,
+      })
     }
-};
+    this.clickEnter = (e) => {
+      if (e.key === 'Enter') {
+        this.props.newTodo(this.state.label)
+        this.setState({
+          label: '',
+        })
+        this.props.createDate()
+      }
+    }
+  }
+
+  render() {
+    return (
+      <input
+        type="text"
+        className="new-todo"
+        placeholder="What needs to be done?"
+        value={this.state.label}
+        autoFocus
+        onChange={this.onChangeText}
+        onKeyPress={this.clickEnter}
+      />
+    )
+  }
+}

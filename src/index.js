@@ -1,10 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 
-import TodoApp from './components/todoapp';
+import TodoApp from './components/todoapp'
 
+const root = ReactDOM.createRoot(document.getElementById('root'))
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
-root.render(<TodoApp />);
+root.render(<TodoApp />)
 // ReactDOM.render(<App />, document.getElementById('root'))

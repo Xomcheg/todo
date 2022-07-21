@@ -1,3 +1,3 @@
 import NewTodo from './new-todo'
 
-export default NewTodo;
+export default NewTodo
