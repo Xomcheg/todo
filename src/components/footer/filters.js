@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import FilterBtn from './filters-btn'
 
@@ -17,4 +18,14 @@ function Filters(props) {
     </ul>
   )
 }
+
+Filters.propTypes = {
+  filterStatus: PropTypes.string,
+  filtersElements: PropTypes.func,
+}
+Filters.defaultProps = {
+  filterStatus: 'all',
+  filtersElements: () => {},
+}
+
 export default Filters

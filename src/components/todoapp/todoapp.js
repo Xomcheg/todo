@@ -95,7 +95,6 @@ export default class App extends Component {
 
           return item
         })
-        console.log(newData)
         return {
           data: newData,
         }

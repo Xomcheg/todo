@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import './new-todo.css'
 
@@ -38,4 +39,13 @@ export default class NewTodo extends Component {
       />
     )
   }
+}
+
+NewTodo.propTypes = {
+  newTodo: PropTypes.func,
+  createDate: PropTypes.func,
+}
+NewTodo.defaultProps = {
+  newTodo: () => {},
+  createDate: () => {},
 }

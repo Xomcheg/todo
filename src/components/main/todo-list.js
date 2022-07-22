@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import TodoListItem from './todo-list-item'
 
@@ -57,7 +58,8 @@ export default class TodoList extends Component {
               <input
                 type="text"
                 className="edit"
-                defaultValue="Editing task"
+                autoFocus
+                defaultValue={item.description}
                 onChange={this.newTextEditTask}
                 onKeyPress={this.newEditTask}
               />
@@ -85,4 +87,20 @@ export default class TodoList extends Component {
 
     return <ul className="todo-list">{elements}</ul>
   }
+}
+
+TodoList.propTypes = {
+  data: PropTypes.array,
+  delItem: PropTypes.func,
+  onToggleDone: PropTypes.func,
+  filterStatus: PropTypes.string,
+  editElement: PropTypes.func,
+}
+
+TodoList.defaultProps = {
+  delItem: () => {},
+  onToggleDone: () => {},
+  editElement: () => {},
+  data: [],
+  filterStatus: 'all',
 }

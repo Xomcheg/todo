@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import Filters from './filters'
 import './footer.css'
@@ -14,6 +15,16 @@ function Footer(props) {
       </button>
     </footer>
   )
+}
+
+Footer.propTypes = {
+  todoCounter: PropTypes.number,
+  clearComplated: PropTypes.func,
+}
+
+Footer.defaultProps = {
+  todoCounter: () => {},
+  clearComplated: () => {},
 }
 
 export default Footer
