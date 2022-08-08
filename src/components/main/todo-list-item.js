@@ -13,6 +13,7 @@ export default class TodoListItem extends Component {
   }
 
   render() {
+    console.log(this.props)
     const { data, delItem, onToggleDone, editElement } = this.props
     const { description, created, id, check } = data
 
