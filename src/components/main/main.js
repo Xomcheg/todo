@@ -4,20 +4,20 @@ import TodoList from './todo-list'
 import './main.css'
 
 function Main(props) {
+  const { data, createDate, filterStatus, delItem, onToggleDone, editElement, clearEditTodo, newTodo } = props
   return (
     <section className="main">
-      <TodoList {...props} />
+      <TodoList
+        data={data}
+        createDate={createDate}
+        filterStatus={filterStatus}
+        delItem={delItem}
+        onToggleDone={onToggleDone}
+        editElement={editElement}
+        clearEditTodo={clearEditTodo}
+        newTodo={newTodo}
+      />
     </section>
   )
 }
 export default Main
-// export default class Main extends Component {
-//   render() {
-//     const data = this.props
-//     return (
-//       <section className="main">
-//         <TodoList {...data} />
-//       </section>
-//     )
-//   }
-// }

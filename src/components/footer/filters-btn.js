@@ -1,23 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const FilterBtn = (props) => {
-  const { props: text, filterName } = props
+function FilterBtn(props) {
+  const { text, filterName, filtersElements } = props
   let select = ''
   if (text.toLowerCase() === filterName) {
     select = 'selected'
   }
-
-  return <button className={select}>{text}</button>
+  return (
+    <button type="button" className={select} onClick={filtersElements}>
+      {text}
+    </button>
+  )
 }
 
 FilterBtn.propTypes = {
-  filterStatus: PropTypes.string,
-  filtersElements: PropTypes.func,
+  filterName: PropTypes.string,
 }
 FilterBtn.defaultProps = {
-  filterStatus: 'Button',
-  filtersElements: () => {},
+  filterName: 'Button',
 }
 
 export default FilterBtn

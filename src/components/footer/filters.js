@@ -3,20 +3,16 @@ import PropTypes from 'prop-types'
 
 import FilterBtn from './filters-btn'
 
-function Filters(props) {
+function Filters({ props }) {
   const { filtersElements, filterStatus } = props
   const buttons = ['All', 'Active', 'Completed']
-  let id = 200
+  const id = 200
   const elements = buttons.map((item) => (
-    <li key={id++}>
-      <FilterBtn props={item} filterName={filterStatus} />
+    <li key={id + 1}>
+      <FilterBtn text={item} filterName={filterStatus} filtersElements={filtersElements} />
     </li>
   ))
-  return (
-    <ul className="filters" onClick={filtersElements}>
-      {elements}
-    </ul>
-  )
+  return <ul className="filters">{elements}</ul>
 }
 
 Filters.propTypes = {

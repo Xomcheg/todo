@@ -16,24 +16,26 @@ export default class NewTodo extends Component {
       })
     }
     this.clickEnter = (e) => {
+      const { newTodo, createDate } = this.props
+      const { label } = this.state
       if (e.key === 'Enter') {
-        this.props.newTodo(this.state.label)
+        newTodo(label)
         this.setState({
           label: '',
         })
-        this.props.createDate()
+        createDate()
       }
     }
   }
 
   render() {
+    const { label } = this.state
     return (
       <input
         type="text"
         className="new-todo"
         placeholder="What needs to be done?"
-        value={this.state.label}
-        autoFocus
+        value={label}
         onChange={this.onChangeText}
         onKeyPress={this.clickEnter}
       />

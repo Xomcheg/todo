@@ -20,10 +20,12 @@ export default class TodoList extends Component {
     }
 
     this.newEditTask = (e) => {
+      const { newTodo, clearEditTodo, createDate } = this.props
+      const { label } = this.state
       if (e.key === 'Enter') {
-        this.props.newTodo(this.state.label)
-        this.props.clearEditTodo()
-        this.props.createDate()
+        newTodo(label)
+        clearEditTodo()
+        createDate()
       }
     }
   }
@@ -39,9 +41,7 @@ export default class TodoList extends Component {
         if (filterStatus === 'active') {
           return !el.done
         }
-        if (filterStatus === 'completed') {
-          return el.done
-        }
+        return el.done
       })
       .map((item) => {
         const { id, done, edit } = item
@@ -58,31 +58,30 @@ export default class TodoList extends Component {
               <input
                 type="text"
                 className="edit"
-                autoFocus
                 defaultValue={item.description}
                 onChange={this.newTextEditTask}
                 onKeyPress={this.newEditTask}
-              />
-            </li>
-          )
-        } else {
-          return (
-            <li key={id} className={classNames}>
-              <TodoListItem
-                data={item}
-                delItem={() => {
-                  delItem(id)
-                }}
-                onToggleDone={() => {
-                  onToggleDone(id)
-                }}
-                editElement={() => {
-                  editElement(id)
-                }}
+                onClick={this.checkClick}
               />
             </li>
           )
         }
+        return (
+          <li key={id} className={classNames}>
+            <TodoListItem
+              data={item}
+              delItem={() => {
+                delItem(id)
+              }}
+              onToggleDone={() => {
+                onToggleDone(id)
+              }}
+              editElement={() => {
+                editElement(id)
+              }}
+            />
+          </li>
+        )
       })
 
     return <ul className="todo-list">{elements}</ul>
@@ -90,7 +89,6 @@ export default class TodoList extends Component {
 }
 
 TodoList.propTypes = {
-  data: PropTypes.array,
   delItem: PropTypes.func,
   onToggleDone: PropTypes.func,
   filterStatus: PropTypes.string,
@@ -101,6 +99,5 @@ TodoList.defaultProps = {
   delItem: () => {},
   onToggleDone: () => {},
   editElement: () => {},
-  data: [],
   filterStatus: 'all',
 }

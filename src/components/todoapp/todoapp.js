@@ -13,7 +13,7 @@ export default class App extends Component {
     this.counter = 100
 
     this.state = {
-      data: [this.createItem('Completed task'), this.createItem('Editing task'), this.createItem('Active task')],
+      data: [],
       filterStatus: 'all',
     }
 
@@ -30,7 +30,7 @@ export default class App extends Component {
       this.setState(({ data }) => {
         const idx = data.findIndex((el) => el.id === id)
         const oldItem = data[idx]
-        const newItem = { ...oldItem, edit: !oldItem.edit, done: oldItem.done ? false : false }
+        const newItem = { ...oldItem, edit: !oldItem.edit, done: false }
         const newArr = [...data.slice(0, idx), newItem, ...data.slice(idx + 1)]
         return {
           data: newArr,
@@ -70,8 +70,9 @@ export default class App extends Component {
     }
 
     this.newTodo = (text) => {
+      const newItem = this.createItem(text)
+      newItem.id = this.upCounter()
       this.setState(({ data }) => {
-        const newItem = this.createItem(text)
         const newArr = [newItem, ...data]
         return {
           data: newArr,
@@ -88,12 +89,21 @@ export default class App extends Component {
       })
     }
 
+    this.createItem = (text) => ({
+      description: text,
+      created: 'created 1 seconds ago',
+      done: false,
+      edit: false,
+      check: null,
+      date: new Date(),
+    })
+
     this.createDate = () => {
       this.setState(({ data }) => {
         const newData = data.map((item) => {
-          item.created = formatDistanceToNow(item.date, { addSuffix: true, includeSeconds: true })
-
-          return item
+          const newElem = item
+          newElem.created = formatDistanceToNow(item.date, { addSuffix: true, includeSeconds: true })
+          return newElem
         })
         return {
           data: newData,
@@ -102,27 +112,29 @@ export default class App extends Component {
     }
   }
 
-  createItem(text) {
-    return {
-      description: text,
-      created: 'created 1 seconds ago',
-      id: this.counter++,
-      done: false,
-      edit: false,
-      check: null,
-      date: new Date(),
-    }
+  UNSAFE_componentWillMount() {
+    this.newTodo('Completed task')
+    this.newTodo('Editing task')
+    this.newTodo('Active task')
+  }
+
+  upCounter() {
+    this.counter += 1
+    const num = this.counter
+    return num
   }
 
   render() {
-    const todoCounter = this.state.data.filter((el) => !el.done).length
+    const { data, filterStatus } = this.state
+    const todoCounter = data.filter((el) => !el.done).length
+
     return (
       <section className="todoapp">
         <Header newTodo={this.newTodo} createDate={this.createDate} />
         <Main
-          data={this.state.data}
+          data={data}
           createDate={this.createDate}
-          filterStatus={this.state.filterStatus}
+          filterStatus={filterStatus}
           delItem={this.delItem}
           onToggleDone={this.onToggleDone}
           editElement={this.editElement}
@@ -131,7 +143,7 @@ export default class App extends Component {
         />
         <Footer
           filtersElements={this.filtersElements}
-          filterStatus={this.state.filterStatus}
+          filterStatus={filterStatus}
           clearComplated={this.clearComplated}
           todoCounter={todoCounter}
         />
