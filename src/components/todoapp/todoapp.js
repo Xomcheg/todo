@@ -69,8 +69,8 @@ export default class App extends Component {
       })
     }
 
-    this.newTodo = (text) => {
-      const newItem = this.createItem(text)
+    this.newTodo = (text, min, sec) => {
+      const newItem = this.createItem(text, min, sec)
       newItem.id = this.upCounter()
       this.setState(({ data }) => {
         const newArr = [newItem, ...data]
@@ -89,8 +89,11 @@ export default class App extends Component {
       })
     }
 
-    this.createItem = (text) => ({
+    this.createItem = (text, min = 0, sec = 0) => ({
       description: text,
+      minutes: min,
+      seconds: sec,
+      timerStatus: false,
       created: 'created 1 seconds ago',
       done: false,
       edit: false,
@@ -110,7 +113,50 @@ export default class App extends Component {
         }
       })
     }
+
+    // this.updateTimer = (idx, timerStatus) => {
+    //   console.log(idx, timerStatus)
+    //   let timer
+    //   if (!timerStatus) {
+    //     timer = setInterval(() => {
+    //       console.log('test')
+    //       this.setState(({ data }) => {
+    //         const oldElem = data[idx]
+    //         const sec = oldElem.seconds + 1
+    //         console.log('seconds', sec)
+    //         const newElem = { ...oldElem, seconds: sec }
+    //         const newArr = [...data.slice(0, idx), newElem, ...data.slice(idx + 1)]
+    //         return {
+    //           data: newArr,
+    //         }
+    //       })
+    //       if (timerStatus) {
+    //         clearInterval(timer)
+    //       }
+    //     }, 1000)
+    //   }
+    // }
+
+    this.checkTimerButtonBtn = (id) => {
+      console.log(id)
+
+      this.setState(({ data }) => {
+        const idx = data.findIndex((el) => el.id === id)
+        const oldElem = data[idx]
+        // const checkTimerStatus = oldElem.timerStatus
+        // this.updateTimer(idx, checkTimerStatus)
+        const newElem = { ...oldElem, timerStatus: !oldElem.timerStatus }
+        const newArr = [...data.slice(0, idx), newElem, ...data.slice(idx + 1)]
+        return {
+          data: newArr,
+        }
+      })
+    }
   }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if ()
+  // }
 
   UNSAFE_componentWillMount() {
     this.newTodo('Completed task')
@@ -126,6 +172,7 @@ export default class App extends Component {
 
   render() {
     const { data, filterStatus } = this.state
+    console.log(data)
     const todoCounter = data.filter((el) => !el.done).length
 
     return (
@@ -140,6 +187,7 @@ export default class App extends Component {
           editElement={this.editElement}
           clearEditTodo={this.clearEditTodo}
           newTodo={this.newTodo}
+          checkTimerButtonBtn={this.checkTimerButtonBtn}
         />
         <Footer
           filtersElements={this.filtersElements}

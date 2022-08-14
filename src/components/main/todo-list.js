@@ -31,7 +31,7 @@ export default class TodoList extends Component {
   }
 
   render() {
-    const { data, delItem, onToggleDone, filterStatus, editElement } = this.props
+    const { data, delItem, onToggleDone, filterStatus, editElement, checkTimerButtonBtn } = this.props
 
     const elements = data
       .filter((el) => {
@@ -61,7 +61,7 @@ export default class TodoList extends Component {
                 defaultValue={item.description}
                 onChange={this.newTextEditTask}
                 onKeyPress={this.newEditTask}
-                onClick={this.checkClick}
+                // onClick={checkTimerButtonBtn(id)}
               />
             </li>
           )
@@ -79,6 +79,7 @@ export default class TodoList extends Component {
               editElement={() => {
                 editElement(id)
               }}
+              checkTimerButtonBtn={() => checkTimerButtonBtn(id)}
             />
           </li>
         )

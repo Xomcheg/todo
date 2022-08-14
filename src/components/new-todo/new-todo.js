@@ -8,37 +8,77 @@ export default class NewTodo extends Component {
     super()
     this.state = {
       label: '',
+      min: '',
+      sec: '',
     }
 
     this.onChangeText = (e) => {
+      const { value } = e.target
       this.setState({
-        label: e.target.value,
+        label: value,
       })
     }
     this.clickEnter = (e) => {
       const { newTodo, createDate } = this.props
-      const { label } = this.state
-      if (e.key === 'Enter') {
-        newTodo(label)
+      const { label, min, sec } = this.state
+      const checkMin = min === '' ? 0 : min
+      const checkSec = sec === '' ? 0 : sec
+      console.log(checkMin, checkSec)
+      if (e.key === 'Enter' && label !== '') {
+        newTodo(label, checkMin, checkSec)
         this.setState({
           label: '',
+          min: '',
+          sec: '',
         })
         createDate()
       }
+      // console.log(this.state)
+    }
+    this.onChangeMin = (e) => {
+      const { value } = e.target
+      this.setState({
+        min: value,
+      })
+    }
+    this.onChangeSec = (e) => {
+      const { value } = e.target
+      this.setState({
+        sec: value,
+      })
     }
   }
 
   render() {
-    const { label } = this.state
+    console.log(this.state)
+    const { label, min, sec } = this.state
     return (
-      <input
-        type="text"
-        className="new-todo"
-        placeholder="What needs to be done?"
-        value={label}
-        onChange={this.onChangeText}
-        onKeyPress={this.clickEnter}
-      />
+      <form className="new-todo-form">
+        <input
+          type="text"
+          className="new-todo"
+          placeholder="Task"
+          value={label}
+          onChange={this.onChangeText}
+          onKeyPress={this.clickEnter}
+        />
+        <input
+          type="number"
+          className="new-todo-form__timer"
+          placeholder="Min"
+          value={min}
+          onChange={this.onChangeMin}
+          onKeyPress={this.clickEnter}
+        />
+        <input
+          type="number"
+          className="new-todo-form__timer"
+          placeholder="Sec"
+          value={sec}
+          onChange={this.onChangeSec}
+          onKeyPress={this.clickEnter}
+        />
+      </form>
     )
   }
 }
