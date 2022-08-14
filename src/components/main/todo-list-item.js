@@ -30,7 +30,7 @@ export default class TodoListItem extends Component {
         newMin = `0${oldMin}`
       } else newMin = oldMin
 
-      if (oldSec >= 11) {
+      if (oldSec >= 60) {
         newSec = `0${0}`
         if (oldMin + 1 < 10) {
           newMin = `0${oldMin + 1}`
@@ -50,7 +50,7 @@ export default class TodoListItem extends Component {
         this.setState({
           timerStatus: true,
         })
-        this.timerId = setInterval(this.timer.bind(this), 500)
+        this.timerId = setInterval(this.timer.bind(this), 1000)
       }
     }
 
