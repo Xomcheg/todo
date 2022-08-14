@@ -23,7 +23,6 @@ export default class NewTodo extends Component {
       const { label, min, sec } = this.state
       const checkMin = min === '' ? 0 : min
       const checkSec = sec === '' ? 0 : sec
-      console.log(checkMin, checkSec)
       if (e.key === 'Enter' && label !== '') {
         newTodo(label, checkMin, checkSec)
         this.setState({
@@ -50,7 +49,6 @@ export default class NewTodo extends Component {
   }
 
   render() {
-    console.log(this.state)
     const { label, min, sec } = this.state
     return (
       <form className="new-todo-form">
