@@ -1,5 +1,5 @@
 # Link to vercel
-todo-hooks https://todos-iig0gugzh-xromenkovevgenii-mailru.vercel.app/
+todo-timer https://todos-iig0gugzh-xromenkovevgenii-mailru.vercel.app/
 
 todo https://vercel.com/xromenkovevgenii-mailru/todos
 
