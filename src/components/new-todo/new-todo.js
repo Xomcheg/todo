@@ -32,7 +32,6 @@ export default class NewTodo extends Component {
         })
         createDate()
       }
-      // console.log(this.state)
     }
     this.onChangeMin = (e) => {
       const { value } = e.target
