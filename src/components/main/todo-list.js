@@ -21,8 +21,7 @@ function TodoList(props) {
     }
   }
 
-  const { data, delItem, onToggleDone, filterStatus, editElement, checkTimerButtonBtn } = props
-
+  const { data, delItem, onToggleDone, filterStatus, editElement } = props
   const elements = data
     .filter((el) => {
       if (filterStatus === 'all') {
@@ -44,7 +43,7 @@ function TodoList(props) {
       if (edit) {
         classNames += 'editing'
         return (
-          <li key={id} className={classNames}>
+          <li className={classNames}>
             <input
               type="text"
               className="edit"
@@ -68,7 +67,6 @@ function TodoList(props) {
             editElement={() => {
               editElement(id)
             }}
-            checkTimerButtonBtn={() => checkTimerButtonBtn(id)}
           />
         </li>
       )
@@ -92,87 +90,3 @@ TodoList.defaultProps = {
 }
 
 export default TodoList
-
-// export default class TodoList extends Component {
-//   constructor() {
-//     super()
-
-//     this.state = {
-//       label: '',
-//     }
-
-//     this.newTextEditTask = (e) => {
-//       this.setState({
-//         label: e.target.value,
-//       })
-//     }
-
-//     this.newEditTask = (e) => {
-//       const { newTodo, clearEditTodo, createDate } = this.props
-//       const { label } = this.state
-//       if (e.key === 'Enter') {
-//         newTodo(label)
-//         clearEditTodo()
-//         createDate()
-//       }
-//     }
-//   }
-
-//   render() {
-//     const { data, delItem, onToggleDone, filterStatus, editElement, checkTimerButtonBtn } = this.props
-
-//     const elements = data
-//       .filter((el) => {
-//         if (filterStatus === 'all') {
-//           return true
-//         }
-//         if (filterStatus === 'active') {
-//           return !el.done
-//         }
-//         return el.done
-//       })
-//       .map((item) => {
-//         const { id, done, edit } = item
-//         let classNames = ''
-
-//         if (done) {
-//           classNames += 'completed'
-//         }
-
-//         if (edit) {
-//           classNames += 'editing'
-//           return (
-//             <li key={id} className={classNames}>
-//               <input
-//                 type="text"
-//                 className="edit"
-//                 defaultValue={item.description}
-//                 onChange={this.newTextEditTask}
-//                 onKeyPress={this.newEditTask}
-//                 // onClick={checkTimerButtonBtn(id)}
-//               />
-//             </li>
-//           )
-//         }
-//         return (
-//           <li key={id} className={classNames}>
-//             <TodoListItem
-//               data={item}
-//               delItem={() => {
-//                 delItem(id)
-//               }}
-//               onToggleDone={() => {
-//                 onToggleDone(id)
-//               }}
-//               editElement={() => {
-//                 editElement(id)
-//               }}
-//               checkTimerButtonBtn={() => checkTimerButtonBtn(id)}
-//             />
-//           </li>
-//         )
-//       })
-
-//     return <ul className="todo-list">{elements}</ul>
-//   }
-// }

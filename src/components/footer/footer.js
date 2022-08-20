@@ -26,7 +26,7 @@ Footer.propTypes = {
 }
 
 Footer.defaultProps = {
-  todoCounter: () => {},
+  todoCounter: 0,
   clearComplated: () => {},
 }
 export default Footer
