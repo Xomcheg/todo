@@ -9,7 +9,6 @@ export default class TodoListItem extends Component {
     this.timer = null
 
     this.state = {
-      // id: '',
       min: '',
       sec: '',
       timerStatus: '',
@@ -17,26 +16,11 @@ export default class TodoListItem extends Component {
 
     this.timer = () => {
       const { sec, min } = this.state
-      const oldMin = Number(min)
-      const oldSec = Number(sec)
-      let newMin
-      let newSec
-
-      if (oldSec + 1 < 10) {
-        newSec = `0${oldSec + 1}`
-      } else newSec = oldSec + 1
-
-      if (oldMin < 10) {
-        newMin = `0${oldMin}`
-      } else newMin = oldMin
-
-      if (oldSec >= 60) {
-        newSec = `0${0}`
-        if (oldMin + 1 < 10) {
-          newMin = `0${oldMin + 1}`
-        } else {
-          newMin = oldMin + 1
-        }
+      let newMin = Number(min)
+      let newSec = Number(sec) + 1
+      if (newSec === 60) {
+        newSec = 0
+        newMin += 1
       }
       this.setState({
         sec: newSec,
@@ -65,32 +49,17 @@ export default class TodoListItem extends Component {
   UNSAFE_componentWillMount() {
     const { data } = this.props
     const { minutes, seconds, timerStatus: firstTimerStatus } = data
-    let newMin
-    let newSec
-    if (minutes < 10) {
-      newMin = `0${minutes}`
-    } else {
-      newMin = minutes
-    }
-    if (seconds < 10) {
-      newSec = `0${seconds}`
-    } else {
-      newSec = seconds
-    }
+    const minutesInSeconds = Math.floor(Number(seconds) / 60)
+    const resultMin = Number(minutes) + minutesInSeconds
+    const resultSec = Number(seconds) - minutesInSeconds * 60
     this.setState({
-      // id: firstId,
-      min: newMin,
-      sec: newSec,
+      min: resultMin,
+      sec: resultSec,
       timerStatus: firstTimerStatus,
     })
   }
 
-  // pauseTimer() {
-  //   clearInterval(this.timer)
-  // }
-
   render() {
-    // console.log(this.state)
     const { min, sec } = this.state
     const { data, delItem, onToggleDone, editElement } = this.props
     const { description, created, id, check } = data
@@ -107,7 +76,7 @@ export default class TodoListItem extends Component {
             <button type="button" className="icon icon-pause" onClick={this.stop}>
               {' '}
             </button>
-            &nbsp; {min}:{sec}
+            &nbsp; {min < 10 ? `0${min}` : `${min}`}:{sec < 10 ? `0${sec}` : `${sec}`}
           </span>
           {/* <span className="description">{description}</span> */}
           <span className="description">{created}</span>
@@ -122,8 +91,6 @@ export default class TodoListItem extends Component {
     )
   }
 }
-
-// export default TodoListItem
 
 TodoListItem.propTypes = {
   delItem: PropTypes.func,
