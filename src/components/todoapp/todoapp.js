@@ -114,37 +114,12 @@ export default class App extends Component {
       })
     }
 
-    // this.updateTimer = (idx, timerStatus) => {
-    //   console.log(idx, timerStatus)
-    //   let timer
-    //   if (!timerStatus) {
-    //     timer = setInterval(() => {
-    //       console.log('test')
-    //       this.setState(({ data }) => {
-    //         const oldElem = data[idx]
-    //         const sec = oldElem.seconds + 1
-    //         console.log('seconds', sec)
-    //         const newElem = { ...oldElem, seconds: sec }
-    //         const newArr = [...data.slice(0, idx), newElem, ...data.slice(idx + 1)]
-    //         return {
-    //           data: newArr,
-    //         }
-    //       })
-    //       if (timerStatus) {
-    //         clearInterval(timer)
-    //       }
-    //     }, 1000)
-    //   }
-    // }
-
     this.checkTimerButtonBtn = (id) => {
       console.log(id)
 
       this.setState(({ data }) => {
         const idx = data.findIndex((el) => el.id === id)
         const oldElem = data[idx]
-        // const checkTimerStatus = oldElem.timerStatus
-        // this.updateTimer(idx, checkTimerStatus)
         const newElem = { ...oldElem, timerStatus: !oldElem.timerStatus }
         const newArr = [...data.slice(0, idx), newElem, ...data.slice(idx + 1)]
         return {
@@ -153,10 +128,6 @@ export default class App extends Component {
       })
     }
   }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if ()
-  // }
 
   UNSAFE_componentWillMount() {
     this.newTodo('Completed task')

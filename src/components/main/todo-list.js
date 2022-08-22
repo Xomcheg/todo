@@ -11,7 +11,10 @@ export default class TodoList extends Component {
 
     this.state = {
       label: '',
+      test: false,
     }
+
+    this.inputEditRef = React.createRef()
 
     this.newTextEditTask = (e) => {
       this.setState({
@@ -27,6 +30,17 @@ export default class TodoList extends Component {
         clearEditTodo()
         createDate()
       }
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // console.log('prev', prevState)
+    const { test } = this.state
+    if (prevState.test !== test) {
+      this.inputEditRef.current.focus()
+      this.setState({
+        test: true,
+      })
     }
   }
 
@@ -56,12 +70,12 @@ export default class TodoList extends Component {
           return (
             <li key={id} className={classNames}>
               <input
+                ref={this.inputEditRef}
                 type="text"
                 className="edit"
                 defaultValue={item.description}
                 onChange={this.newTextEditTask}
                 onKeyPress={this.newEditTask}
-                // onClick={checkTimerButtonBtn(id)}
               />
             </li>
           )
@@ -84,6 +98,7 @@ export default class TodoList extends Component {
           </li>
         )
       })
+    console.log(elements)
 
     return <ul className="todo-list">{elements}</ul>
   }

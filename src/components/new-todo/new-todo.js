@@ -12,6 +12,8 @@ export default class NewTodo extends Component {
       sec: '',
     }
 
+    this.inputTascRef = React.createRef()
+
     this.onChangeText = (e) => {
       const { value } = e.target
       this.setState({
@@ -23,7 +25,6 @@ export default class NewTodo extends Component {
       const { label, min, sec } = this.state
       const checkMin = min === '' ? 0 : min
       const checkSec = sec === '' ? 0 : sec
-      console.log(checkMin, checkSec)
       if (e.key === 'Enter' && label !== '') {
         newTodo(label, checkMin, checkSec)
         this.setState({
@@ -33,28 +34,47 @@ export default class NewTodo extends Component {
         })
         createDate()
       }
-      // console.log(this.state)
     }
     this.onChangeMin = (e) => {
-      const { value } = e.target
+      let { value } = e.target
+      const minimum = 0
+      const max = 1000
+      if (value < minimum) {
+        value = minimum
+      }
+      if (value > max) {
+        value = max
+      }
       this.setState({
         min: value,
       })
     }
     this.onChangeSec = (e) => {
-      const { value } = e.target
+      let { value } = e.target
+      const min = 0
+      const max = 60
+      if (value < min) {
+        value = min
+      }
+      if (value > max) {
+        value = max
+      }
       this.setState({
         sec: value,
       })
     }
   }
 
+  componentDidMount() {
+    this.inputTascRef.current.focus()
+  }
+
   render() {
-    console.log(this.state)
     const { label, min, sec } = this.state
     return (
       <form className="new-todo-form">
         <input
+          ref={this.inputTascRef}
           type="text"
           className="new-todo"
           placeholder="Task"
@@ -63,6 +83,7 @@ export default class NewTodo extends Component {
           onKeyPress={this.clickEnter}
         />
         <input
+          maxLength={3}
           type="number"
           className="new-todo-form__timer"
           placeholder="Min"
@@ -71,6 +92,7 @@ export default class NewTodo extends Component {
           onKeyPress={this.clickEnter}
         />
         <input
+          maxLength={2}
           type="number"
           className="new-todo-form__timer"
           placeholder="Sec"

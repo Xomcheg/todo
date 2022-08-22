@@ -6,12 +6,13 @@ import FilterBtn from './filters-btn'
 function Filters({ props }) {
   const { filtersElements, filterStatus } = props
   const buttons = ['All', 'Active', 'Completed']
-  const id = 200
+  // let id = 200
   const elements = buttons.map((item) => (
-    <li key={id + 1}>
+    <li>
       <FilterBtn text={item} filterName={filterStatus} filtersElements={filtersElements} />
     </li>
   ))
+  console.log('button', elements)
   return <ul className="filters">{elements}</ul>
 }
 
