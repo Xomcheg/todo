@@ -47,14 +47,23 @@ export default class TodoListItem extends Component {
         timerStatus: false,
       })
     }
+
+    this.clickEdit = () => {
+      const { editElement } = this.props
+      this.stop()
+      editElement()
+    }
   }
 
   UNSAFE_componentWillMount() {
     const { data } = this.props
-    const { minutes, seconds, timerStatus: firstTimerStatus } = data
+    const { edit, minutes, seconds, timerStatus: firstTimerStatus } = data
     const minutesInSeconds = Math.floor(Number(seconds) / 60)
     const resultMin = Number(minutes) + minutesInSeconds
     const resultSec = Number(seconds) - minutesInSeconds * 60
+    if (edit) {
+      clearInterval(this.timerId)
+    }
     this.setState({
       min: resultMin,
       sec: resultSec,
@@ -64,11 +73,11 @@ export default class TodoListItem extends Component {
 
   render() {
     const { min, sec } = this.state
-    const { data, delItem, onToggleDone, editElement } = this.props
+    const { data, delItem, onToggleDone, checkMouseClick } = this.props
     const { description, created, id, check } = data
 
     return (
-      <div className="view">
+      <div className="view" role="presentation" onClick={checkMouseClick}>
         <input className="toggle" type="checkbox" id={id} defaultChecked={check} onClick={onToggleDone} />
         <label htmlFor={id}>
           <span className="title">{description}</span>
@@ -84,7 +93,7 @@ export default class TodoListItem extends Component {
           {/* <span className="description">{description}</span> */}
           <span className="description">{created}</span>
         </label>
-        <button type="button" className="icon icon-edit" onClick={editElement}>
+        <button type="button" className="icon icon-edit" onClick={this.clickEdit}>
           {' '}
         </button>
         <button type="button" className="icon icon-destroy" onClick={delItem}>

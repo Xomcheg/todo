@@ -7,30 +7,6 @@ import TodoListEditItem from './todo-list-edit-item'
 import './todo-list.css'
 
 function TodoList(props) {
-  // constructor() {
-  //   super()
-
-  //   this.state = {
-  //     label: '',
-  //   }
-
-  //   // this.newTextEditTask = (e) => {
-  //   //   this.setState({
-  //   //     label: e.target.value,
-  //   //   })
-  //   // }
-
-  //   // this.newEditTask = (e) => {
-  //   //   const { newTodo, clearEditTodo, createDate } = this.props
-  //   //   const { label } = this.state
-  //   //   if (e.key === 'Enter') {
-  //   //     newTodo(label)
-  //   //     clearEditTodo()
-  //   //     createDate()
-  //   //   }
-  //   // }
-  // }
-
   const {
     data,
     delItem,
@@ -64,13 +40,6 @@ function TodoList(props) {
         classNames += 'editing'
         return (
           <li key={id} className={classNames}>
-            {/* <input
-              type="text"
-              className="edit"
-              defaultValue={item.description}
-              onChange={this.newTextEditTask}
-              onKeyPress={this.newEditTask}
-            /> */}
             <TodoListEditItem data={item} saveEditTodo={saveEditTodo} />
           </li>
         )
@@ -90,6 +59,7 @@ function TodoList(props) {
             }}
             checkTimerButtonBtn={() => checkTimerButtonBtn(id)}
             getItemTimerData={getItemTimerData}
+            role="presentation"
           />
         </li>
       )

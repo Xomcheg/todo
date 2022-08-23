@@ -38,21 +38,25 @@ export default class NewTodo extends Component {
     this.onChangeMin = (e) => {
       let { value } = e.target
       const minimum = 0
-      const max = 1000
+      // const max = 1000
       if (value < minimum) {
         value = minimum
       }
-      if (value > max) {
-        value = max
-      }
+      // if (value > max) {
+      //   value = max
+      // }
       this.setState({
         min: value,
       })
     }
     this.onChangeSec = (e) => {
       let { value } = e.target
+      const { maxLength } = e.target
       const min = 0
-      const max = 60
+      const max = 59
+      if (value.length > maxLength) {
+        value = value.slice(0, maxLength)
+      }
       if (value < min) {
         value = min
       }
@@ -70,9 +74,10 @@ export default class NewTodo extends Component {
   }
 
   render() {
+    const { checkMouseClick } = this.props
     const { label, min, sec } = this.state
     return (
-      <form className="new-todo-form">
+      <form className="new-todo-form" role="presentation" onClick={checkMouseClick}>
         <input
           ref={this.inputTascRef}
           type="text"

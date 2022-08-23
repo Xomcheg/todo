@@ -80,20 +80,11 @@ export default class App extends Component {
       })
     }
 
-    // this.clearEditTodo = () => {
-    //   this.setState(({ data }) => {
-    //     const newArr = data.filter((el) => !el.edit)
-    //     return {
-    //       data: newArr,
-    //     }
-    //   })
-    // }
-
     this.saveEditTodo = (text, id) => {
       this.setState(({ data }) => {
         const idx = data.findIndex((el) => el.id === id)
         const oldElem = data[idx]
-        const newElem = { ...oldElem, description: text, edit: false, done: false }
+        const newElem = { ...oldElem, description: text, edit: false, done: false, check: false }
         const newArr = [...data.slice(0, idx), newElem, ...data.slice(idx + 1)]
         return {
           data: newArr,
@@ -158,7 +149,15 @@ export default class App extends Component {
     // чтобы обновлять данные после того как таймер запущем и пользователь нажал кнопку edit
     // таймер паузится и данные записываются в общий объект
     this.getItemTimerData = (id, sec, min) => {
-      console.log('TimerData', id, sec, min)
+      this.setState(({ data }) => {
+        const idx = data.findIndex((el) => el.id === id)
+        const oldElem = data[idx]
+        const newElem = { ...oldElem, minutes: min, seconds: sec }
+        const newArr = [...data.slice(0, idx), newElem, ...data.slice(idx + 1)]
+        return {
+          data: newArr,
+        }
+      })
     }
   }
 
@@ -182,7 +181,7 @@ export default class App extends Component {
       <>
         <div className="overlay" role="presentation" onClick={this.checkMouseClick} />
         <section className="todoapp">
-          <Header newTodo={this.newTodo} createDate={this.createDate} />
+          <Header newTodo={this.newTodo} createDate={this.createDate} checkMouseClick={this.checkMouseClick} />
           <Main
             data={data}
             createDate={this.createDate}

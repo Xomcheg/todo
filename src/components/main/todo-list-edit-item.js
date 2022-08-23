@@ -31,27 +31,7 @@ export default class TodoListEditItem extends Component {
       }
       console.log(e.key)
     }
-
-    // this.checkMouseClick = (e) => {
-    //   console.log(e.target)
-    //   const { saveEditTodo, data } = this.props
-    //   const { id } = data
-    //   const { label } = this.state
-    //   const { target } = e
-    //   if (target.classList.contains('edit')) {
-    //     console.log('true')
-    //     saveEditTodo(label, id)
-    //   }
-    // }
   }
-
-  //   componentDidUpdate(prevProps, prevState) {
-  //     const { data } = this.props
-  //     const { edit } = data
-  //     if (prevState.edit !== edit) {
-  //       this.inputEditRef.current.focus()
-  //     }
-  //   }
 
   componentDidMount() {
     const { data } = this.props
@@ -59,6 +39,7 @@ export default class TodoListEditItem extends Component {
     this.inputEditRef.current.focus()
     this.setState({
       label: description,
+      editLabel: description,
     })
   }
 
@@ -72,7 +53,6 @@ export default class TodoListEditItem extends Component {
         defaultValue={data.description}
         onChange={this.newTextEditTask}
         onKeyDown={this.newEditTask}
-        // onClick={this.checkMouseClick}
       />
     )
   }
