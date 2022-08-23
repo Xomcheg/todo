@@ -53,6 +53,13 @@ export default class TodoListItem extends Component {
       this.stop()
       editElement()
     }
+    this.clickDone = () => {
+      const { onToggleDone } = this.props
+      if (this.timer) {
+        this.stop()
+      }
+      onToggleDone()
+    }
   }
 
   UNSAFE_componentWillMount() {
@@ -73,12 +80,12 @@ export default class TodoListItem extends Component {
 
   render() {
     const { min, sec } = this.state
-    const { data, delItem, onToggleDone, checkMouseClick } = this.props
+    const { data, delItem, checkMouseClick } = this.props
     const { description, created, id, check } = data
 
     return (
       <div className="view" role="presentation" onClick={checkMouseClick}>
-        <input className="toggle" type="checkbox" id={id} defaultChecked={check} onClick={onToggleDone} />
+        <input className="toggle" type="checkbox" id={id} defaultChecked={check} onClick={this.clickDone} />
         <label htmlFor={id}>
           <span className="title">{description}</span>
           <span className="description">

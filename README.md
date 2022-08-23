@@ -1,6 +1,6 @@
 # Link to vercel
 
-todo-timer https://todos-ju0dab6ve-xromenkovevgenii-mailru.vercel.app/
+todo-timer https://todos-gqt5w2jmo-xromenkovevgenii-mailru.vercel.app/
 
 todo https://vercel.com/xromenkovevgenii-mailru/todos
 
