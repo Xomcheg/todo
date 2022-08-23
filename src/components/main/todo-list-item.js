@@ -15,6 +15,8 @@ export default class TodoListItem extends Component {
     }
 
     this.timer = () => {
+      const { data, getItemTimerData } = this.props
+      const { id } = data
       const { sec, min } = this.state
       let newMin = Number(min)
       let newSec = Number(sec) + 1
@@ -26,6 +28,7 @@ export default class TodoListItem extends Component {
         sec: newSec,
         min: newMin,
       })
+      getItemTimerData(id, newSec, newMin)
     }
 
     this.start = (e) => {

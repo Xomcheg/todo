@@ -80,9 +80,21 @@ export default class App extends Component {
       })
     }
 
-    this.clearEditTodo = () => {
+    // this.clearEditTodo = () => {
+    //   this.setState(({ data }) => {
+    //     const newArr = data.filter((el) => !el.edit)
+    //     return {
+    //       data: newArr,
+    //     }
+    //   })
+    // }
+
+    this.saveEditTodo = (text, id) => {
       this.setState(({ data }) => {
-        const newArr = data.filter((el) => !el.edit)
+        const idx = data.findIndex((el) => el.id === id)
+        const oldElem = data[idx]
+        const newElem = { ...oldElem, description: text, edit: false, done: false }
+        const newArr = [...data.slice(0, idx), newElem, ...data.slice(idx + 1)]
         return {
           data: newArr,
         }
@@ -115,8 +127,6 @@ export default class App extends Component {
     }
 
     this.checkTimerButtonBtn = (id) => {
-      console.log(id)
-
       this.setState(({ data }) => {
         const idx = data.findIndex((el) => el.id === id)
         const oldElem = data[idx]
@@ -126,6 +136,29 @@ export default class App extends Component {
           data: newArr,
         }
       })
+    }
+
+    // если пользователь кликнул по пустой области то отменяю редактирование элеменотов и возвращаю изначальный текст задачи
+    this.checkMouseClick = (e) => {
+      const { target } = e
+      if (!target.classList.contains('edit')) {
+        this.setState(({ data }) => {
+          const newData = data.map((el) => {
+            const newEl = el
+            newEl.edit = false
+            return newEl
+          })
+          return {
+            data: newData,
+          }
+        })
+      }
+    }
+    // Получаем данные таймера от элемента и записываем их в data по id
+    // чтобы обновлять данные после того как таймер запущем и пользователь нажал кнопку edit
+    // таймер паузится и данные записываются в общий объект
+    this.getItemTimerData = (id, sec, min) => {
+      console.log('TimerData', id, sec, min)
     }
   }
 
@@ -143,30 +176,34 @@ export default class App extends Component {
 
   render() {
     const { data, filterStatus } = this.state
-    console.log(data)
     const todoCounter = data.filter((el) => !el.done).length
 
     return (
-      <section className="todoapp">
-        <Header newTodo={this.newTodo} createDate={this.createDate} />
-        <Main
-          data={data}
-          createDate={this.createDate}
-          filterStatus={filterStatus}
-          delItem={this.delItem}
-          onToggleDone={this.onToggleDone}
-          editElement={this.editElement}
-          clearEditTodo={this.clearEditTodo}
-          newTodo={this.newTodo}
-          checkTimerButtonBtn={this.checkTimerButtonBtn}
-        />
-        <Footer
-          filtersElements={this.filtersElements}
-          filterStatus={filterStatus}
-          clearComplated={this.clearComplated}
-          todoCounter={todoCounter}
-        />
-      </section>
+      <>
+        <div className="overlay" role="presentation" onClick={this.checkMouseClick} />
+        <section className="todoapp">
+          <Header newTodo={this.newTodo} createDate={this.createDate} />
+          <Main
+            data={data}
+            createDate={this.createDate}
+            filterStatus={filterStatus}
+            delItem={this.delItem}
+            onToggleDone={this.onToggleDone}
+            editElement={this.editElement}
+            clearEditTodo={this.clearEditTodo}
+            newTodo={this.newTodo}
+            checkTimerButtonBtn={this.checkTimerButtonBtn}
+            saveEditTodo={this.saveEditTodo}
+            getItemTimerData={this.getItemTimerData}
+          />
+          <Footer
+            filtersElements={this.filtersElements}
+            filterStatus={filterStatus}
+            clearComplated={this.clearComplated}
+            todoCounter={todoCounter}
+          />
+        </section>
+      </>
     )
   }
 }

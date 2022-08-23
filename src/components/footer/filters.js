@@ -12,7 +12,6 @@ function Filters({ props }) {
       <FilterBtn text={item} filterName={filterStatus} filtersElements={filtersElements} />
     </li>
   ))
-  console.log('button', elements)
   return <ul className="filters">{elements}</ul>
 }
 
