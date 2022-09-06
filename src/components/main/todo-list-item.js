@@ -13,7 +13,6 @@ function TodoListItem(props) {
 
   function useTimer() {
     setSec((currentSec) => currentSec + 1)
-    console.log('timer')
   }
 
   const checkTimerStatus = () => {
@@ -23,6 +22,9 @@ function TodoListItem(props) {
   }
 
   const start = () => {
+    if (timerStatus) {
+      return
+    }
     setTimerStatus(true)
     checkTimerStatus()
   }

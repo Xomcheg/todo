@@ -126,7 +126,6 @@ function App() {
   }
 
   const setTimerStatus = (id) => {
-    console.log('setTimerStatus', id)
     const idx = data.findIndex((el) => el.id === id)
     const oldItem = data[idx]
     const newItem = { ...oldItem, timerStatus: !oldItem.timerStatus }

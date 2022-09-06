@@ -25,7 +25,6 @@ function TodoList(props) {
         return true
       }
       if (filterStatus === 'active') {
-        console.log('testtttt', el)
         return !el.done
       }
       return el.done
@@ -67,7 +66,6 @@ function TodoList(props) {
         </li>
       )
     })
-  console.log('elements', elements)
   return <ul className="todo-list">{elements}</ul>
 }
 
