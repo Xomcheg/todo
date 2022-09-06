@@ -16,6 +16,7 @@ function Main(props) {
     checkTimerButtonBtn,
     saveEditTodo,
     getItemTimerData,
+    setTimerStatus,
   } = props
   return (
     <section className="main">
@@ -31,6 +32,7 @@ function Main(props) {
         checkTimerButtonBtn={checkTimerButtonBtn}
         saveEditTodo={saveEditTodo}
         getItemTimerData={getItemTimerData}
+        setTimerStatus={setTimerStatus}
       />
     </section>
   )
